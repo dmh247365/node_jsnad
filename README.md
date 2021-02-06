@@ -288,9 +288,9 @@ $npm i request@1.2.3 - 2.3.4 // >=1.2.3 <=2.3.4
 
 $npm i request@1.2.* // >1.2.0 <1.3.0
 
-$npm i request@ ~1.2.3 // >1.2.3 <1.3.0
+$npm i request@~1.2.3 // >1.2.3 <1.3.0
 
-$npm i request@ ^1.2.3 // >1.2.3 <2.0.0
+$npm i request@^1.2.3 // >1.2.3 <2.0.0
 ```
 
 &nbsp;
@@ -325,6 +325,82 @@ The **"scripts"** field in the package.json can be used to define aliases for sh
 ## 7 -  Node Module System
 &nbsp;
 
+### **7.1 - Loading a Module**
+This refers to bringing into into a script (ie our file) which we do so at the top of the file.  
+
+the syntax to import a module is:  
+`const package = require('module-name)`
+
+In CommonJS. modules are loaded synchronously, and processed in the order the JavaScript runtime finds them.
+
+We load the modules using the `require` function, which is passed a packages namespace.  
+
+`require` is a global function, it takes in one argument which is the path of the target module we want to load. The `require` function returns a object that is exported from the target module. 
+
+`module.exports` is initially a blank object.
+
+### **Aside:** ### 
+**Server side:-**
+The `CommonJS` module specification is the standard used in Node.js for working with modules. Modules allow us to encapsulate all sorts of functionality, and expose this functionality to other JavaScript files.  
+
+
+**Client side:-**
+Client-side JavaScript that runs in the browser uses another standard, called `ES6 Modules`.
+&nbsp;
+
+### **7.2 - Creating a Module**
+A JavaSript file is a module when it exports one or more of the following: variables, functions, objects.
+
+We can export from a module in the following ways:
+
+1 - Using exports
+```js
+// uppercase.js  
+
+exports.uppercase = (str) => str.toUpperCase()
+```
+
+Any JavaScript file can import and use this module:
+
+```js
+// uppercase.js  
+
+const uppercaseModule = require('uppercase.js')
+upppercaseModule.uppercase('test')
+```
+&nbsp;
+
+2 - Exporting more than one value:
+
+```js
+// uppercase.js  
+
+exports.a = 1
+exports.b = 2
+exports.c = 3
+```
+We import them into the desired file using the destructuring assignment:
+
+```js
+const { a, b, c } = require('./uppercase.js')
+```
+
+3 - Exporting a single value:
+
+```js
+// file.js
+module.exports = value
+```
+
+&nbsp;
+### **7.3 - Detecting a Main Module**
+
+
+&nbsp;
+### **7.4 - Resolving a Module Path**
+
+
+&nbsp;
 ## 8 -  Asynchronous Control Flow
 &nbsp;
 
