@@ -229,7 +229,7 @@ $npm install -g npm-check-updates
 $ncu
 ```
 
-Semantic versioning allows us full control over what we install. We are helped in this process by a couple of semver specifiers namely the **tilde ~** and the **carat ^**.  
+Semantic versioning allows us full control over what we install. We are helped in this process by a couple of semver specifiers namely the **tilde \~** and the **carat ^**.  
 
 &nbsp;
 ### **Caret & Tilde: What's the Difference?**
@@ -238,7 +238,7 @@ Semantic versioning allows us full control over what we install. We are helped i
 Where they differ is in flexibility around *minor* version changes and behaviour for versions below `1.0.0` ( ie the "magic zero" versions).
 
 &nbsp;
-**^ Tilde -**  ***flexible on Patch***  
+**\~ Tilde -**  ***flexible on Patch***  
 For tilde ranges, **major** and **minor** versions must match those specified, but any `patch` version greater than or equal to the one specified is valid.
 
 For example, `~1.2.3` permits versions from `1.2.3` up to, but not including, the next minor, `1.3.0`.
@@ -251,9 +251,9 @@ For example, `~1.2.3` will only permit versions up to not not including `1.3.0` 
 
 &nbsp;
 
-so we can either do:  
-* 1 - default install
-* 2 - specified install  
+**so we can either do:**  
+* **1 - default install**
+* **2 - specified install**  
 &nbsp;
 
 **1 - Default install**
@@ -298,7 +298,7 @@ $npm i request@ ^1.2.3 // >1.2.3 <2.0.0
 A word of caution around the use of 0.x.x versions, things get messy due to the nature of the special 0 major version number.  
 The major version 0 is supposed to be resevered for `"initial development"`, where "anything may change at any time". so the "patch" and "minor, non-breaking changes" essentially have no meaning.  
 
-So the ~ & ^ operator have no impact on a major version starting with 0, whatever is specified is installed.
+So the `~` & `^` operator have no impact on a major version starting with `0`, whatever is specified is installed.
 
 ***`A way to think of 0.x semantics is: 0.MAJOR.MINOR`***
 
