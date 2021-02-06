@@ -161,6 +161,8 @@ $npm init -y
 ### **6.3 - Installing Dependencies**
 Most applications we build will need the functionality of other packages, which are called dependencies, ie our application is dependant upon it.
 
+Unless specificied otherwise package are installed as dependencies.
+
 There are two types:
 &nbsp;
 
@@ -168,17 +170,22 @@ There are two types:
 2 - DevDepencies (we have to specify)  
 
 Both of which can be installed once we have package.json file.  
-To install a package ( ie pino) we use **npm install** ie:
-```js
-$npm install pino
-```
-This will install the latest version of pino in the **node_modules** folder.
 
-To install all the modules per the package.json file we just do:
-
+To install a package ( ie request) we use **npm install** ie:
 ```js
-$npm install
+$npm install request // this will install the latest version
 ```
+This will install the latest version of the request package in the **node_modules** folder and update the package.json file with the corresponding name and version number.
+
+```
+"dependencies": {
+    "request": ^2.88.0"
+}
+```
+So by default the npm CLI installs the latest version of a package, unless otherwise specified.
+
+
+
 &nbsp;
 ### **6.4 - Development Dependencies**
 To install a package as a dev dependancy we have declare it as so, installing the pino package as dev dependancy:
@@ -192,16 +199,90 @@ in production we don't want dev dependancies as there is no requirement for them
 $npm install --production
 ```
 &nbsp;
+
+### Aside: Package-lock.json
+A package-lock.json file locks in the versions of packages we will use in our project, ie without it when we $npm install, the latest allowable packages are installed.  
+This leads to version drift. Which is when the version numbers of your application's dependencies is different across different developers, builds or other environments.  
+Which can lead to hard-to-debug inconsistencies between environments, because it isn't immediately clear what versions of dependencies are installed.  
+
+&nbsp;
 ### **6.5 - Semver**
 Semantic versioning is crucial for managing despendencies. A Semver is fundamentally three numbers separated by dots, which indicate changes to the package.
 
-Semver MAJOR.MINOR.PATCH :
+Semver **MAJOR.MINOR.PATCH** :
 
-| Change | Description|
-| :--- | :--- |
-| MAJOR | Change breaks behaviour or API |
-| MINOR | Package extended, not a breaking change, backwards compatible |
-| PATCH | A bug fix |
+| Change | Description| Impact |
+| :--- | :--- | :--- |
+| MAJOR | Change breaks behaviour or API, not backwards compatible | **breaking** |
+| MINOR | Extended functionality, not a breaking change, backwards compatible | **feature** |
+| PATCH | A bug fix | **fix** |
+
+&nbsp;  
+A good website to view Semver for a specific package is semver.npmjs.com  
+
+A great package to install globally which show the latest versions for packages you have installed in your project is:  
+```js
+$npm install -g npm-check-updates
+```
+ then to use it, just do:  
+```js
+$ncu
+```
+
+Semantic versioning allows us full control over what we install, so we can either do:  
+* 1 - default install
+* 2 - specified install  
+&nbsp;
+
+**1 - Default install**
+
+To install a package ( ie request) we use **npm install** ie:
+```js
+$npm install request // this will install the latest version
+```
+This will install the latest version of the request package in the **node_modules** folder and update the package.json file with the corresponding name and version number.
+
+```
+"dependencies": {
+    "request": ^2.88.0"
+}
+```
+So by default the npm CLI installs the latest version of a package, unless otherwise specified.
+
+&nbsp;
+
+**2 - Specified install**
+
+We can tell npm to install an exact version of a package or even a package version with a specified range:
+
+```js
+$npm i request@2.1.2 // this exact version only
+
+$npm i request@1.x // >=1.0.0 <2.0.0
+
+$npm i request@1.2.3 - 2.3.4 // >=1.2.3 <=2.3.4
+
+$npm i request@1.2.* // >1.2.0 <1.3.0
+
+$npm i request@ ~1.2.3 // >1.2.3 <1.3.0
+
+$npm i request@ ^1.2.3 // >1.2.3 <2.0.0
+```
+
+
+&nbsp;
+To install all the modules per the package.json file we just do:
+
+```js
+$npm install
+```
+
+To bring all denpendencies to their latest compatible versions we can can run:
+```
+$npm update
+```
+
+
 
 &nbsp;
 ### **6.6 - Package Scripts**
