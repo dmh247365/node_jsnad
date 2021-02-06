@@ -233,10 +233,11 @@ Semantic versioning allows us full control over what we install. We are helped i
 
 &nbsp;
 ### **Caret & Tilde: What's the Difference?**
-Both block changes in the MAJOR version.
+**Both block changes in the MAJOR version.**
 
-Where they differ is in flexibility around *minor* version changes and behaviour for versions below `1.0.0` ( ie the "magic zero" versions).  
+Where they differ is in flexibility around *minor* version changes and behaviour for versions below `1.0.0` ( ie the "magic zero" versions).
 
+&nbsp;
 **~ Tilde -**  ***flexible on Patch***  
 For tilde ranges, **major** and **minor** versions must match those specified, but any `patch` version greater than or equal to the one specified is valid.
 
@@ -295,11 +296,11 @@ $npm i request@ ^1.2.3 // >1.2.3 <2.0.0
 &nbsp;
 ### **Important note:- 0.x.x Versions**
 A word of caution around the use of 0.x.x versions, things get messy due to the nature of the special 0 major version number.  
-The major version 0 is supposed to be resevered for "initial development", where "anything mmay change at any time". so the "patch" and "minor, non-breaking changes" essentially have no meaning.  
+The major version 0 is supposed to be resevered for `"initial development"`, where "anything may change at any time". so the "patch" and "minor, non-breaking changes" essentially have no meaning.  
 
 So the ~ & ^ operator have no impact on a major version starting with 0, whatever is specified is installed.
 
-A way to treat 0.x semantics is: **0.MAJOR.MINOR**
+`A way to think of 0.x semantics is: **0.MAJOR.MINOR**`
 
 &nbsp;
 To install all the modules per the package.json file we just do:
