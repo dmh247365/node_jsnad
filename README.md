@@ -238,7 +238,7 @@ Semantic versioning allows us full control over what we install. We are helped i
 Where they differ is in flexibility around *minor* version changes and behaviour for versions below `1.0.0` ( ie the "magic zero" versions).
 
 &nbsp;
-**~ Tilde -**  ***flexible on Patch***  
+**^ Tilde -**  ***flexible on Patch***  
 For tilde ranges, **major** and **minor** versions must match those specified, but any `patch` version greater than or equal to the one specified is valid.
 
 For example, `~1.2.3` permits versions from `1.2.3` up to, but not including, the next minor, `1.3.0`.
@@ -300,7 +300,7 @@ The major version 0 is supposed to be resevered for `"initial development"`, whe
 
 So the ~ & ^ operator have no impact on a major version starting with 0, whatever is specified is installed.
 
-`A way to think of 0.x semantics is: **0.MAJOR.MINOR**`
+***`A way to think of 0.x semantics is: 0.MAJOR.MINOR`***
 
 &nbsp;
 To install all the modules per the package.json file we just do:
