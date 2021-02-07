@@ -12,8 +12,8 @@
    - #### *6.2 - Initializing a Package*
    - #### *6.3 - Installing Dependencies*
    - #### *6.4 - Development Dependencies*
-   - #### *6.5 - Semver
-   - #### *6.6 - Package Scripts
+   - #### *6.5 - Semver*
+   - #### *6.6 - Package Scripts*
 * ### 7 -  **Node Module System**
     - #### *7.1 - Loading a Module*
     - #### *7.2 - Creating a Module*
@@ -340,16 +340,85 @@ We load the modules using the `require` function, which is passed a packages nam
 `module.exports` is initially a blank object.
 
 ### **Aside:** ### 
-**Server side:-**
-The `CommonJS` module specification is the standard used in Node.js for working with modules. Modules allow us to encapsulate all sorts of functionality, and expose this functionality to other JavaScript files.  
-
-
 **Client side:-**
-Client-side JavaScript that runs in the browser uses another standard, called `ES6 Modules`.
+Client-side JavaScript that runs in the browser uses another standard, called `ES Module (ESM)` format. It uses an `export` keyword to export a module's public API and an `import` keyword to import it.
+
+At sometime in the future this option will be fully supported in Node.js, however it can be implemented now, with a `transpiler`, such as `Babel` that behind the scenes converts its back to CommonJS format.
 &nbsp;
+
+**Server side:-**
+The `CommonJS` module specification is the standard used in Node.js for working with modules. It uses `require` and `module.exports`.  
+Modules allow us to encapsulate all sorts of functionality, and expose this functionality to other JavaScript files.  
+
+All examples use CommonJS.
 
 ### **7.2 - Creating a Module**
 A JavaSript file is a module when it exports one or more of the following: variables, functions, objects.
+&nbsp;
+
+Aside: what gives with:- `module.exports` and `exports`. 
+
+1 - Module is an object, which has a property called `exports` which initially is an empty object.
+
+2 - The Node.js developers being helpful to us, allow us to use `exports` as this is a reference to `module.exports`
+
+```js
+// file1.js
+
+exports.a = 'A';
+exports.b = 'B';
+
+console.log(module);
+```
+
+```js
+$ node file.js
+Module {
+  id: '.',
+  exports: { a: 'A', 'b': 'B' },
+  ...
+}
+```
+
+As can be seen assigning properties to the `exports` object has added them to `module.exports`.
+
+Which we can confirm with:
+
+```js
+// file2.js
+
+exports.a = 'A';
+console.log(exports === module.exports);
+console.log(module.exports);
+```
+
+```js
+$ node file2.js
+true
+{ a: 'A' }
+...
+```
+
+However all is not what it seems, if we assign anything to `module.exports` then `exports` is no log a reference to it, think of it as it loses its powers, ie:
+
+```js
+// file3.js
+
+module.exports = {a: 'A'};
+exports.b = 'B';
+console.log(exports === module.exports);
+console.log(module)
+```
+
+```js
+$ node file3.js
+false
+Module {
+  id: '.',
+  exports: { a: 'A' },
+  ...
+}
+```
 
 We can export from a module in the following ways:
 
@@ -398,8 +467,19 @@ module.exports = value
 
 &nbsp;
 ### **7.4 - Resolving a Module Path**
+We consume a module by using the `require` function.
 
+```js
+const module = require('./model');
+```
 
+Require will search for a module in the following locations:
+
+- is it a core modules?.
+- is there a node_modules package with its name?.
+- is there a file (or directory) with its name?.
+- if none of the above are true then throw an error.
+  
 &nbsp;
 ## 8 -  Asynchronous Control Flow
 &nbsp;
