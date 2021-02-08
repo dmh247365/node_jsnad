@@ -337,7 +337,7 @@ We load the modules using the `require` function, which is passed a packages nam
 
 `require` is a global function, it takes in one argument which is the path of the target module we want to load. The `require` function returns a object that is exported from the target module. 
 
-`module.exports` is initially a blank object.
+`module.exports` - module is an object, which contains a property called exports which is a blank object.
 
 ### **Aside:** ### 
 **Client side:-**
@@ -356,11 +356,14 @@ All examples use CommonJS.
 A JavaSript file is a module when it exports one or more of the following: variables, functions, objects.
 &nbsp;
 
-Aside: what gives with:- `module.exports` and `exports`. 
+<details>
+  <summary>`module exports' & `exports` in detail</summary>
+  
+  1. Module is an object, which has a property called `exports` which initially is an empty object.
 
-1 - Module is an object, which has a property called `exports` which initially is an empty object.
+  2. The Node.js developers being helpful to us, allow us to use `exports` as this is a reference to `module.exports`, so essentially `exports = module.exports`.
+</details>
 
-2 - The Node.js developers being helpful to us, allow us to use `exports` as this is a reference to `module.exports`
 
 ```js
 // file1.js
@@ -388,6 +391,7 @@ Which we can confirm with:
 // file2.js
 
 exports.a = 'A';
+
 console.log(exports === module.exports);
 console.log(module.exports);
 ```
@@ -399,13 +403,14 @@ true
 ...
 ```
 
-However all is not what it seems, if we assign anything to `module.exports` then `exports` is no log a reference to it, think of it as it loses its powers, ie:
+However all is not what it seems, if we assign anything to `module.exports` then `exports` is no longer a reference to it, think of it as it loses its powers, ie:
 
 ```js
 // file3.js
 
 module.exports = {a: 'A'};
 exports.b = 'B';
+
 console.log(exports === module.exports);
 console.log(module)
 ```
@@ -509,5 +514,30 @@ Require will search for a module in the following locations:
 &nbsp;
 
 
+
+*** test 
+
+# A collapsible section containing markdown
+<details>
+  <summary>Click to expand!</summary>
+  
+  ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets
+</details>
+
+# A collapsible section containing code
+<details>
+  <summary>Click to expand!</summary>
+  
+  ```javascript
+    function whatIsLove() {
+      console.log('Baby Don't hurt me. Don't hurt me');
+      return 'No more';
+    }
+  ```
+</details>
 
 
