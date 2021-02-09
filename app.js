@@ -1,9 +1,11 @@
 const add = require('./add.js');
 
+console.log('add: ', add);
+
 function greet(name) {
   console.log("Hello there, " + name + "!");
 }
 
 greet("dave");
 
-add(10,20);
+console.log(add(10,20));

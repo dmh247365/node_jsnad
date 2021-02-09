@@ -363,19 +363,33 @@ A JavaSript file is a module when it exports one or more of the following: varia
 
   2. The Node.js developers being helpful to us, allow us to use `exports` as this is a reference to `module.exports`, so essentially `exports = module.exports`. However with this shortcut comes great responsibility!.
 
-    <details>
-    This is a test
-    1. blah
-    2. blah
-    3. blah
-    </details>
 
+  ### Using module.exports
+  <table ><tbody ><tr><td><details ><summary><sub><b>Click to see more:</b></sub><h6> Given the following code </h6>
+  </summary>
+  ```js
+  // add.js
 
+  function add(a, b) {
+    return a + b;
+  }
 
-</details>
+  module.exports = add;
+  ```
+  </summary><hr>
+  <h6>Which we bring into app.js</h6>
 
+  ```js
+  // app.js
+  const add = require('./add.js');
 
+  console.log(add(20, 10));
 
+  ```
+  1 - initially module.exports is an empty object, we overwrite this, by making it now a function.
+
+  </details></td></tr></tbody>
+  </table>
 
 
 ```js

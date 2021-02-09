@@ -1,12 +1,25 @@
-module.exports = function add(a, b) {
+function add(a, b) {
   return a + b;
 }
 
-module.exports = function subtract(a, b) {
+function subtract(a, b) {
   return a - b;
 }
 
+
+// module.exports = function add(a, b) {
+//   return a + b;
+// }
+
+// module.exports = function subtract(a, b) {
+//   return a - b;
+// }
+
+
 // console.log(add(1, 2));
+
+module.exports = add;
+// module.exports = subtract;
 
 // exports.add = add;
 // exports.subract = subtract;
