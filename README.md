@@ -362,7 +362,7 @@ A JavaSript file is a module when it exports one or more of the following: varia
   1. Module is an object, which has a property called `exports` which initially is an empty object.
 
   2. The Node.js developers being helpful to us, allow us to use `exports` as this is a reference to `module.exports`, so essentially `exports = module.exports`. However with this shortcut comes great responsibility!.
-
+</details>
 
   ### Using module.exports
   <table ><tbody ><tr><td><details ><summary><sub><b>Click to see more:</b></sub><h6> Given the following code </h6>
