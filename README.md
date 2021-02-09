@@ -366,7 +366,7 @@ A JavaSript file is a module when it exports one or more of the following: varia
 
   ### Using module.exports
   <table ><tbody ><tr><td><details ><summary><sub><b>Click to see more:</b></sub><h6> Given the following code </h6>
-  </summary>
+
   ```js
   // add.js
 
