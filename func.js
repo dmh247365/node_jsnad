@@ -18,16 +18,16 @@ function subtract(a, b) {
 
 // console.log(add(1, 2));
 
-module.exports = add;
+// module.exports = add;
 // module.exports = subtract;
 
 // exports.add = add;
 // exports.subract = subtract;
 // exports = add
-// module.exports = {
-//   add,
-//   subtract
-// };
+module.exports = {
+  add,
+  subtract
+};
 
 console.log(module);
 console.log('exports: ', exports)

@@ -1,11 +1,5 @@
-const add = require('./func.js');
+const {add, subtract} = require('./func.js');
 
-console.log('add: ', add);
 
-function greet(name) {
-  console.log("Hello there, " + name + "!");
-}
-
-greet("dave");
-
-console.log(add(10,20));
+console.log(add(20,10));
+console.log(subtract(30,5));
