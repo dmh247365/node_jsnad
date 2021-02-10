@@ -1,4 +1,4 @@
-const add = require('./add.js');
+const add = require('./func.js');
 
 console.log('add: ', add);
 

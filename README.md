@@ -355,33 +355,44 @@ All examples use CommonJS.
 ### **7.2 - Creating a Module**
 A JavaSript file is a module when it exports one or more of the following: variables, functions, objects.
 &nbsp;
-
-<details>
-  <summary>click: module exports & exports in detail</summary>
   
   1. Module is an object, which has a property called `exports` which initially is an empty object.
 
   2. The Node.js developers being helpful to us, allow us to use `exports` as this is a reference to `module.exports`, so essentially `exports = module.exports`. However with this shortcut comes great responsibility!.
-</details>
 
-  ### Using module.exports
-  <table ><tbody ><tr><td><details ><summary><sub><b>Click to see more:</b></sub><h6> Given the following code </h6>
 
-  ```js
-  // add.js
 
-  function add(a, b) {
-    return a + b;
-  }
+  <table >
+    <tbody ><tr><td><details ><summary>
+      <sub>
+      <b>Click: for full description of module.exports & exports</b>
+      </sub>
 
-  module.exports = add;
-  ```
+  &nbsp;  
+    i - what is it all about  
+    ii - this is life  
+    iii - yo dude  
+
   </summary><hr>
   <h6>Which we bring into app.js</h6>
 
   ```js
+  // func.js
+  
+  function add(a, b) {
+    return a + b;
+  }
+
+  function subtract(a, b) {
+    return a - b;
+  }
+  ```
+
+<hr>
+
+  ```js
   // app.js
-  const add = require('./add.js');
+  const add = require('./func.js');
 
   console.log(add(20, 10));
 
@@ -498,7 +509,7 @@ module.exports = value
 
 
 &nbsp;
-### **7.4 - Resolving a Module Path**
+### **7.4 - Resolving a Module Path (CommonJS)**
 We consume a module by using the `require` function.
 
 ```js
