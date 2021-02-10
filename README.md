@@ -373,8 +373,10 @@ A JavaSript file is a module when it exports one or more of the following: varia
     ii - this is life  
     iii - yo dude  
 
-  </summary><hr>
-  <h6>Which we bring into app.js</h6>
+  </summary>
+  <h5>i - How not to use exports</h5>
+  
+  <h6>Multiple assigments</h6>
 
   ```js
   // func.js
@@ -386,6 +388,9 @@ A JavaSript file is a module when it exports one or more of the following: varia
   function subtract(a, b) {
     return a - b;
   }
+
+  module.exports = add;
+  module.exports = subtract;
   ```
 
 <hr>
@@ -395,10 +400,25 @@ A JavaSript file is a module when it exports one or more of the following: varia
   const add = require('./func.js');
 
   console.log(add(20, 10));
+  console.log(subtract(30, 5))
 
   ```
-  1 - initially module.exports is an empty object, we overwrite this, by making it now a function.
 
+  Summary:-
+  Initially module.exports is an empty object, we overwrite this, by making it now a function.  
+
+  First we assign the add function, then we overwrite it and assign the subtract function. 
+
+  The correct way would be to maintain the integrity of module.exports as an object and just assign add & subtract as properties ie:-  
+
+  ```js
+  // func.js
+  
+  module.exports = {
+    add,
+    subtract
+  }
+  ```
   </details></td></tr></tbody>
   </table>
 
