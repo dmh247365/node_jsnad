@@ -355,11 +355,12 @@ All examples use CommonJS.
 ### **7.2 - Creating a Module**
 A JavaSript file is a module when it exports one or more of the following: variables, functions, objects.
 &nbsp;
+
+We use the `require` function to bring in what is exported, and as above that could be anything.
   
   1. Module is an object, which has a property called `exports` which initially is an empty object.
 
-  2. The Node.js developers being helpful to us, allow us to use `exports` as this is a reference to `module.exports`, so essentially `exports = module.exports`. However with this shortcut comes great responsibility!.
-
+  2. The Node.js developers being helpful to us, allow us to use `exports` as and alias to `module.exports`, so essentially `exports = module.exports`. However with this shortcut comes great responsibility!.
 
 
   <table >
@@ -428,6 +429,20 @@ A JavaSript file is a module when it exports one or more of the following: varia
   }
   ```
 
+We can bring in what is exported in the following ways:-
+
+1 - assigning the export object to the variable func, in this example probably not the best approach as we only have a few methods and when calling the methods we would each time have to use ObjectName.method. 
+
+```js
+  // app.js
+  const func = require('./func.js');
+
+  console.log(func.add(20, 10));
+  console.log(func.subtract(30, 5))
+  ```
+
+2 - The better approach is to use Object destructuring, we only have a few methods so we can easily track their order.
+
   ```js
   // app.js
   const { add, subtract } = require('./func.js');
@@ -439,6 +454,30 @@ A JavaSript file is a module when it exports one or more of the following: varia
   <hr>
   <h5>Multiple assigments - exports:-</h5>
 
+  Lets save effort on our pinkies even more and just directly assign the functions to `module.exports` using the shorthand of `exports`.  
+  So we are assigning the function to exports.add, so there is now a property on the module.exports object called add which contains the add function.
+
+  *Actual could even cut down further and using fat arrow syntax* 
+  
+  ```js
+  // func.js
+
+  exports.add = function(a, b) {
+    return a + b;
+  }
+
+  exports.subract = function(a, b) {
+    return a - b;
+  }
+  ```
+
+  ```js
+  // app.js
+  const { add, subtract } = require('./func.js');
+
+  console.log(add(20, 10));
+  console.log(subtract(30, 5))
+  ```
 
 
 
@@ -550,15 +589,20 @@ module.exports = value
 
 &nbsp;
 ### **7.3 - Detecting a Main Module**
+A module is a script that is used by other scripts, basically think of it as a file which uses the export functionality and then this functionality is consumed by other files.
+But also we may have a file that acts as a program in its own right, ie its doesn't just exist to export functionality to other files.
 
+The "start" script in the package.json files executes the **node index.js**. when a file is called with **node** that file is the entry point of the program.
+
+In some situations we may want a module to be able to operate as a program and as a module that can be loaded into other modules.
+
+when a file is the entry point of a program, it's the main module. We can detect whether a particular file is the main module in two ways.  
+
+We can check if `module.parent` is `null` or we can check if the `require.main` is the `module` object.
 
 &nbsp;
 ### **7.4 - Resolving a Module Path (CommonJS)**
 We consume a module by using the `require` function.
-
-```js
-const module = require('./model');
-```
 
 Require will search for a module in the following locations:
 
@@ -566,7 +610,49 @@ Require will search for a module in the following locations:
 - is there a node_modules package with its name?.
 - is there a file (or directory) with its name?.
 - if none of the above are true then throw an error.
-  
+
+
+To help us, the **require** function has a method called `require.resolve`, which can be used to determine the absolute path for any required module.
+
+We would generally bring in modules from the following locations
+* package resolution 
+* directory resolution
+* file resolution
+* node core APIs resolution
+
+Example:- using `require.resolve` to for a file resolution and node core API resolution
+
+```js
+'use strict'
+
+console.log();
+console.group('file resolution')
+console.log(`require('./func)`, '\t', '=>', require.resolve('./func'))
+console.log(`require('./func.js)`, '\t', '=>', require.resolve('./func.js'))
+console.groupEnd()
+console.log()
+
+console.group('core APIs resolution')
+console.log(`require('fs')`, '\t', '=>', require.resolve('fs'))
+console.log(`require('util')`, '\t', '=>', require.resolve('util'))
+console.groupEnd()
+console.log()
+```
+
+Which in the terminal will display:-
+
+```
+$ node app.js
+
+file resolution
+ require('./func) => /blahblah/Projects/node_jsnad/func.js
+ require('./func.js) => /blahblah/Projects/node_jsnad/func.js
+
+core APIs resolution
+ require('fs') => fs
+ require('util') => util
+```
+
 &nbsp;
 ## 8 -  Asynchronous Control Flow
 &nbsp;
