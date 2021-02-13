@@ -628,7 +628,7 @@ Example:- using `require.resolve` to for a file resolution and node core API res
 console.log();
 console.group('file resolution')
 console.log(`require('./func)`, '\t', '=>', require.resolve('./func'))
-console.log(`require('./func.js)`, '\t', '=>', require.resolve('./func.js')) // demo only .js not req
+console.log(`require('./func.js)`, '\t', '=>', require.resolve('./func.js')) // .js not req
 console.groupEnd()
 console.log()
 
