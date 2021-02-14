@@ -1,28 +1,28 @@
-// function toUppercase(string) {
-//   if (typeof string !== "string") {
-//     throw TypeError("Wrong type given, should be a string");
-//   }
-//   return string.toUpperCase();
+// console.log('Starting');
+
+// try {
+//   setTimeout(() => {
+//     throw new Error("yo I'm broken, handle with care")
+//   }, 2000);  
+// } catch(error) {
+//   console.log(error.message)
 // }
 
-// toUppercase(4);
+// console.log('Stopping');
 
 
-function toUppercase(string) {
-  if (typeof string !== "string") {
-    throw TypeError("Wrong type given, should be a string");
-  }
-  return string.toUpperCase();
+// console.log('Starting');
+
+//   setTimeout(() => {
+//     throw new Error("yo I'm broken, handle with care")
+//   }, 2000);
+
+// console.log('Stopping');
+
+try{
+  console.log("hello");
+  throw "Javelin";
+} catch (err) {
+  console.log(err)
 }
-
-function trycatch(string) {
-  try {
-    toUppercase(string)
-  } catch (error) {
-    console.log(error.message);
-  } finally {
-    console.log("thats it folks...");
-  }
-}
-
-trycatch(4);
+console.log("goodbye");

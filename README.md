@@ -701,7 +701,7 @@ An **error in JavaScript is an object**, which is **thrown** to halt the program
 We have the base **Error** constructor, from which we can create our own generic error, which would have the following three properties:-
 * **message**: a string with the error message we want to display
 * **name**: the error's type, ie if we want to classify it
-* **stack** a stack trace of functions executed (this is done for us behind the scenes) 
+* **stack** a stack trace of function that are executing (open) when the error occurred (this is done for us behind the scenes) 
 
 ***creating our Custom Error allows us a higher level of communication in what went wrong in order to generate the error*** 
 
@@ -718,6 +718,32 @@ So we have an error indicating that something has gone wrong and which will eith
 If we just leave it, the error will cause the application to crash and display the error message/type/stacktrace in the terminal.
 
 Obviously we don't want our application to crash, so we catch the error and handle it. The correct terminology is we throw and exception, which basically means we use `throw` followed by the error object, so now with our exception we can `catch` it and handled within the code to ensure the application continues to run smoothly.
+
+`throw` will immediately terminate, ie code block/function that contains the throw will end.
+// if we are in a promise and we `throw` then the result of the promise will be a rejection ie promise.reject.
+// which we will then catch later on.
+
+A basic example of throw:-
+
+```js
+// test.js  
+
+console.log("hello");
+throw "Javelin";
+console.log("goodbye");
+```
+
+Note: we can throw anything, object, number, string, error etc.
+
+Forgetting that above is bad code, we will never reach the `console.log("goodbye")` because when we reach the throw will cause our script to crash.
+
+```
+hello
+/blahblah/Projects/node_jsnad/test.js:31
+throw "Javelin";
+^
+Javelin
+```
 
 ### What happens when we throw an exception?
 An exception has to be caught somewhere, it will bubble up the stack trace until it is caught.
@@ -743,6 +769,7 @@ TypeError: Wrong type given, should be a string
   at toUppercase (/blahblah/Projects/node_jsnad/test.js:3)
   at Object.<anonymous> (/blahblahProjects/node_jsnad/test.js:8)
 ```
+aside: In the error I have left in the line number ie 3, but ommitted the column number which was 11.
 
 Error handling in an asynchronous world is distinct from its synchronous counterpart.
 
@@ -752,7 +779,27 @@ Synchronous code is straightforward and thus so is its error handling.
 
 We use a `try/catch` combination or if want further functionality a `try/catch/finally` combination.
 
-Using the previous example:-
+Using the previous examples:-
+
+```js
+// test.js  
+try{
+   console.log("hello");
+   throw "Javelin";
+ } catch (err) {
+   console.log(err)
+ }
+ console.log("goodbye");
+```
+
+So the key now is that we are catching the exception and thus it doesn't cause the script to crash.
+
+```
+hello
+Javelin
+goodbye
+```
+
 
 ```js
 // test.js 
@@ -788,12 +835,52 @@ thats it folks...
 
 `catch`, captures the actual exception. It receives the error object, which we can inspect.
 
-`finally` statement will run regardless of the functions outcome, whether it failed or succeeded, any code inside `finally` will run.
+`finally` statement will run regardless of the functions outcome, whether it failed or succeeded, any code inside it will run.
+
+
+### Asynchronous error handling
+
+We can't use the try/catch method outlined above, as the main body would have moved on before the async part returned and thus we would have no way of catching the error.
+
+```js
+
+```
 
 
 
 
+
+In order to understand what we need to do, we need to look at the individual async types:
+
+* - Callbacks
+* - Promises
+* - Async / await
+
+#### Callbacks
+These are known as **Error first callback**, which is a specific convention we apply.
+
+-  1. The first argument of the callback is reserved for an error object. If an error occurred, it will be returned by the first err argument.  
+-  2. The second argument of the callback is reserved for any successful response data. If no error occurred, err will be set to null and any successful data will be returned in the second argument.
+
+So basically if there is an error we will know by checking the first argument else everything is well.
 &nbsp;
+
+We can either catch the error inside of the callback itself or pass the error to another callback.
+
+// this is confusing need to think about this further and describe it much better!!!!
+
+#### Promises
+With a promise we get back either:-
+1 - `Promise.reject` --> for an error
+2 - `Promise.resolve` --> for success  
+
+
+
+
+#### Async / await
+`async/await` denotes a asynchronous function, that has the readability of a synchronous one.
+
+// we can use a try/catch
 
 ## 11 - Using Buffers
 &nbsp;
