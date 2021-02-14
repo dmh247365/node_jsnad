@@ -655,12 +655,72 @@ core APIs resolution
 
 &nbsp;
 ## 8 -  Asynchronous Control Flow
+
+Quick definition:  
+When we `synchronously` execute something. we wait for it to finish before moving onto another task, in effect we are blocked from moving on to the next task.
+The opposite of this is when we `asynchronously` execute something, we can move onto another task before its finished, ie we are not blocked.
+
+Node gives us different ways to handle `asynchronous` operations, but in reality these are more of an evolution than completely different methodologies.
+
+The different ways available to use are:-
+- callbacks
+- promises
+- asyn / await
+
+xxx - need to address more around why we need asynchronocity, without how would things look
+xxx - also 
+
+Callbacks:- 
+***"in ye olde node days, these were the only way to handle asychronicity"***
+A callback is a function that will be called back at some future point.
+
+Callback key takeouts-
+* its a function that is passed into another function (HOF) as an argument.
+* The HOF will at some stage `callback` to the passed in function.
+
+
+Promises:-
+***These are callbacks brought into the 20th Century***
+
+
+Asyn/Await:-
+***Think of these as the future this is 21st Century stuff***
+
 &nbsp;
 
 ## 9 -  Node Event System
 &nbsp;
 
 ## 10 - Handling Errors
+Errors occur when something hasn't gone as expected, generally errors can fall into one of two broad groups:
+* **1 - Operational errors -** Occur while the program is doing a task ie, ie network failure.
+* **2 - Deveolper errors -** Is where we have made a mistake, ie a invalid input, we should be notified so we can fix it.
+
+An **error in JavaScript is an object**, which is **thrown** to halt the program, Node inherits the error class from JS.
+
+We have the base **Error** constructor, from which we can create our own generic error, which would have the following three properties:-
+* **message**: a string with the error message we want to display
+* **name**: the error's type, ie if we want to classify it
+* **stack** a stack trace of functions executed (this is done for us behind the scenes) 
+
+***creating our Custom Error allows us a higher level of communication in what went wrong in order to generate the error*** 
+
+As well as the ability to created our own error types, we are give then following types, which also inherit from the base **Error** constructor, these are:
+* EvalError
+* SyntaxError
+* RangeError
+* ReferenceError
+* TypeError
+* URIError
+
+So we have an error indicating that something has gone wrong and which will either generate a custom message or default message but what happens next?
+
+If we just leave it, the error will cause the application to crash and display the error message/type/stacktrace in the terminal.
+
+Obviously we don't want our application to crash, so we catch the error and handle it. The correct terminology is we throw and exception, which basically means we use `throw` followed by the error object, so now our exception we can `catch` it and handled within the code to ensure the application continues to run smoothly.
+
+
+Error handling in an asynchronous world is distinct from its synchronous counterpart.
 &nbsp;
 
 ## 11 - Using Buffers
