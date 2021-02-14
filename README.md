@@ -717,10 +717,82 @@ So we have an error indicating that something has gone wrong and which will eith
 
 If we just leave it, the error will cause the application to crash and display the error message/type/stacktrace in the terminal.
 
-Obviously we don't want our application to crash, so we catch the error and handle it. The correct terminology is we throw and exception, which basically means we use `throw` followed by the error object, so now our exception we can `catch` it and handled within the code to ensure the application continues to run smoothly.
+Obviously we don't want our application to crash, so we catch the error and handle it. The correct terminology is we throw and exception, which basically means we use `throw` followed by the error object, so now with our exception we can `catch` it and handled within the code to ensure the application continues to run smoothly.
 
+### What happens when we throw an exception?
+An exception has to be caught somewhere, it will bubble up the stack trace until it is caught.
+
+```js
+// test.js 
+
+function toUppercase(string) {
+  if (typeof string !== "string") {
+    throw TypeError("Wrong type given, should be a string");
+  }
+  return string.toUpperCase();
+}
+
+toUppercase(4);
+```
+
+This will result in the following error, note by naming the function we have visibility of it in the stack trace.
+Also because at this stage we are not catching the exception it has caused the app to crash.
+
+```
+TypeError: Wrong type given, should be a string
+  at toUppercase (/blahblah/Projects/node_jsnad/test.js:3)
+  at Object.<anonymous> (/blahblahProjects/node_jsnad/test.js:8)
+```
 
 Error handling in an asynchronous world is distinct from its synchronous counterpart.
+
+
+### Synchronous error handling
+Synchronous code is straightforward and thus so is its error handling.
+
+We use a `try/catch` combination or if want further functionality a `try/catch/finally` combination.
+
+Using the previous example:-
+
+```js
+// test.js 
+
+function toUppercase(string) {
+  if (typeof string !== "string") {
+    throw TypeError("Wrong type given, should be a string");
+  }
+  return string.toUpperCase();
+}
+
+function trycatch(string) {
+  try {
+    toUppercase(string)
+  } catch (error) {
+    console.log(error.message);
+  } finally {
+    console.log("thats it folks...");
+  }
+}
+
+trycatch(4);
+```
+
+so now in the terminal we wil get:-
+
+```
+Wrong type given, should be a string
+thats it folks...
+```
+
+`try` path or happy path as it is known as, deals with the function call that could potentially throw.
+
+`catch`, captures the actual exception. It receives the error object, which we can inspect.
+
+`finally` statement will run regardless of the functions outcome, whether it failed or succeeded, any code inside `finally` will run.
+
+
+
+
 &nbsp;
 
 ## 11 - Using Buffers
