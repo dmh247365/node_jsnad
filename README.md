@@ -7,6 +7,12 @@
    - #### *3.5 - Stack Trace Limit*
 * ### 4 -  **Debugging _and_ Diagnostics**
 * ### 5 -  **Key JavaScript Concepts**
+    - #### *5.1 - Data Types*
+    - #### *5.2 - Functions*
+    - #### *5.3 - Prototypal Inheritance (Functional)
+    - #### *5.4 - Prototypal Inheritance (Constructor Functions)
+    - #### *5.5 - Prototypal Inheritance (Class-Syntax-Constructors)
+    - #### *5.6 - Closure Scope
 * ### 6 -  **Packages & Dependencies**
    - #### *6.1 - The npm Command*
    - #### *6.2 - Initializing a Package*
