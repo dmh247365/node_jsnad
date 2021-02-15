@@ -777,7 +777,39 @@ Error handling in an asynchronous world is distinct from its synchronous counter
 ### Synchronous error handling
 Synchronous code is straightforward and thus so is its error handling.
 
+Aside - synchronous errors are exceptions, asynchronous errors are rejections.
+
 We use a `try/catch` combination or if want further functionality a `try/catch/finally` combination.
+
+We can basically use the try / catch to handle errors so that our script doesn't crash
+
+```js
+const myFunc = {};
+myFunc();
+console.log("Im here!!");
+```
+
+We wouldn't do above in real life, that being said, the above code will crash, and the console.log will never be reached. Basically we assign a blank object to the the variable myFunc, then we try to invoke myFunc and obviously we can't so the script crashes.
+
+```js
+try {
+  const myFunc = {};
+  myFunc();
+} catch(err) {
+  console.log("oops something went wrong!")
+}
+console.log("Im here!!");
+```
+
+```
+oops something went wrong!
+Im here!!
+```
+
+So the error object is still created, but now instead of it crashing the script, we have a catch block will effectively says, 'yo its ok, give me the error I know what to do with it, and you carry on with the rest of the script'.
+In this case we are not actually using the error object is anyway, we in fact just generate a console.log message, but we could have displayed the actual error message if we wanted to.
+
+
 
 Using the previous examples:-
 
@@ -846,10 +878,6 @@ We can't use the try/catch method outlined above, as the main body would have mo
 
 ```
 
-
-
-
-
 In order to understand what we need to do, we need to look at the individual async types:
 
 * - Callbacks
@@ -857,7 +885,7 @@ In order to understand what we need to do, we need to look at the individual asy
 * - Async / await
 
 #### Callbacks
-These are known as **Error first callback**, which is a specific convention we apply.
+These are known as **Error first callbacks**, which is a specific convention we apply.
 
 -  1. The first argument of the callback is reserved for an error object. If an error occurred, it will be returned by the first err argument.  
 -  2. The second argument of the callback is reserved for any successful response data. If no error occurred, err will be set to null and any successful data will be returned in the second argument.
@@ -865,9 +893,60 @@ These are known as **Error first callback**, which is a specific convention we a
 So basically if there is an error we will know by checking the first argument else everything is well.
 &nbsp;
 
-We can either catch the error inside of the callback itself or pass the error to another callback.
+Why we can't use the try/catch with callbacks.
 
-// this is confusing need to think about this further and describe it much better!!!!
+```js
+// error.js
+const dns = require('dns');
+
+try {
+  dns.lookup('.....juniordevelopercentracom2', (err, value) => {
+    if(err) {
+      console.log("an error has occurred!..");
+      return;
+    }
+    console.log(value);
+  });
+} catch(err) {
+  console.log("Im spartacus Error!...")
+}
+console.log('here at the end!..');
+```
+
+```js
+here at the end!..
+an error has occurred!..
+```
+
+As expected, the callback is asynchronous, so the dns call is handed off to go and do, in the meantime the code continues, hits the catch block, but at this stage there is no error to report so it skips over it and runs the console.log at the end. Then the error returned from the dns is picked up and it runs the "an error has occurred!..." console.log.
+
+So the catch block is completely redundant.
+
+but what would happen is we did array with the if block for checking if an error occured?
+
+```js
+// error.js
+const dns = require('dns');
+
+try {
+dns.lookup('.....juniordevelopercentracom2', (err, value) => {
+    console.log(value);
+  });
+} catch(err) {
+  console.log("Im spartacus Error!...")
+}
+```
+
+```js
+undefined
+```
+
+So again the catch block is redundant and now we don't capture the error at all, as we don't have the if block checking for it.
+
+We can either:-
+1 - catch the error inside of the callback itself, which is what we do with if(err) block.
+2 - pass the error to another function to handle.
+
 
 #### Promises
 With a promise we get back either:-
@@ -877,10 +956,16 @@ With a promise we get back either:-
 
 
 
+
+
 #### Async / await
 `async/await` denotes a asynchronous function, that has the readability of a synchronous one.
 
+The good news is that `async/await` supports `try/catch` of rejections. So basically we can use 
 // we can use a try/catch
+
+
+
 
 ## 11 - Using Buffers
 &nbsp;
@@ -900,31 +985,5 @@ With a promise we get back either:-
 ## 16 - Writing Unit Tests
 &nbsp;
 
-
-
-*** test 
-
-# A collapsible section containing markdown
-<details>
-  <summary>Click to expand!</summary>
-  
-  ## Heading
-  1. A numbered
-  2. list
-     * With some
-     * Sub bullets
-</details>
-
-# A collapsible section containing code
-<details>
-  <summary>Click to expand!</summary>
-  
-  ```javascript
-    function whatIsLove() {
-      console.log('Baby Don't hurt me. Don't hurt me');
-      return 'No more';
-    }
-  ```
-</details>
 
 

@@ -83,3 +83,11 @@ var myChart = new Chart(ctx, data);
 - All code block starter lines, e.g. ` ```python ` must be preceded by a blank space. 
 - The closing block ` ``` ` tag must be followed by a newline. 
 - The difference between `Style 1` and `Style 2` is a blank `<tr></tr> tag at the start of the table body
+
+> If we wanted to go one step further, we could even break down the title bar into 3 component parts, the _menu_ button, the _title_, and the _search_ icon. We could dive even further into each one of those if we needed to.
+>
+> Deciding how deep to split your components is more of an art than a science and is a skill you'll develop with experience.
+
+In any case, it's usually a good idea to start looking at applications using the idea of _components_. By breaking our app down into components it becomes easier to test and easier to keep track of what functionality goes where.
+
+## The container component

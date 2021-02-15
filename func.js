@@ -1,13 +1,7 @@
-function add(a, b) {
-  return a + b;
+try {
+const myFunc = {};
+myFunc();
+} catch(err) {
+  console.log("oops something went wrong!")
 }
-
-function subtract(a, b) {
-  return a - b;
-}
-
-module.exports = {
-  add,
-  subtract
-};
-
+console.log("Im here!!");
