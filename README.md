@@ -22,6 +22,14 @@
 * ### 8 -  **Asynchronous Control Flow**
 * ### 9 -  **Node Event System**
 * ### 10 - **Handling Errors**
+     - #### *10.1 - Kinds of Errors*
+     - #### *10.2 - Throwing*
+     - #### *10.3 - Native Error Constructors*
+     - #### *10.4 - Custom Errors*
+     - #### *10.5 - Try/Catch*
+     - #### *10.6 - Rejections*
+     - #### *10.7 - Async Try/Catch*
+     - #### *10.8 - Propogation*
 * ### 11 - **Using Buffers**
 * ### 12 - **Working with Streams**
 * ### 13 - **Interacting with the File System**
