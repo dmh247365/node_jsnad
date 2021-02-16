@@ -1009,7 +1009,7 @@ so we call the promise, next we chain on what is subsequently to be done, ie its
 function myFunc() {
   return new Promise((resolve, reject) => {
     // resolve("Success!...")
-    // reject("Something went wrong!...)
+    // reject("Oops no!...)
   })
 }
 
@@ -1021,8 +1021,38 @@ myFunc()
 so we would get:
 ```
 $ func.js
-Success!...
+Success!... // for resolve
+Oops no!... // for reject
 ```
+
+
+But the rejection is not an error object, for that we would need to pass on in:-
+
+```js
+// func.js
+
+function myFunc() {
+  return new Promise((resolve, reject) => {
+    // resolve("Success!...")
+    reject(new TypeError("Something went wrong!..."))
+  })
+}
+
+myFunc()
+.then((kingKenny) => { console.log(kingKenny)})
+.catch((blah) => { 
+  console.log('type of error:- ', blah.name);
+  console.log('error message:- ', blah.message);
+});
+```
+
+```
+$ node func.js
+type of error:-  TypeError
+error message:-  Something went wrong!...
+```
+
+
 
 Aside:-
 Promises in more detail
