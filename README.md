@@ -30,6 +30,9 @@
     - #### *7.3 - Detecting a Main Module*
     - #### *7.4 - Resolving a Module Path*
 * ### 8 -  **Asynchronous Control Flow**
+    - #### *8.1 - Callbacks*
+    - #### *8.2 - Promises*
+    - #### *8.3 - Async/Await*
 * ### 9 -  **Node Event System**
 * ### 10 - **Handling Errors**
      - #### *10.1 - Kinds of Errors*
@@ -38,7 +41,7 @@
      - #### *10.4 - Custom Errors*
      - #### *10.5 - Try/Catch*
      - #### *10.6 - Rejections*
-     - #### *10.7 - Async Try/Catch*
+     - #### *10.7 - Async/Await - Try/Catch*
      - #### *10.8 - Propogation*
 * ### 11 - **Using Buffers**
 * ### 12 - **Working with Streams**
@@ -690,15 +693,32 @@ xxx - also
 
 Callbacks:- 
 ***"in ye olde node days, these were the only way to handle asychronicity"***
-A callback is a function that will be called back at some future point.
+A callback is a function that will be called at some future point, we pass the function in as the last argument, the calling function does it stuff then before it ends it **callbacks** to the passed in function and basically says **go ahead lad, do you stuff**.
 
-Callback key takeouts-
-* its a function that is passed into another function (HOF) as an argument.
+Callback key takeouts:-
+* its a function that is passed into another function (HOF) as an argument (the last argument if more than one).
 * The HOF will at some stage `callback` to the passed in function.
+* The callbacks arguments will be err first in format
+* Within the callback we will check for error.
+
+
 
 
 Promises:-
 ***These are callbacks brought into the 20th Century***
+A promise is an object that represents an asynchronous operation. 
+The promise is either:-
+1 - `pending`
+2 - `settled` --> `resolved` or `rejected`
+
+
+Promisify
+
+
+
+Promises key takeouts:-
+* we can handle a promised resolved or rejected within a `.then` 
+* or we can the reject with an explicit `.catch`
 
 
 Asyn/Await:-
@@ -710,11 +730,18 @@ Asyn/Await:-
 &nbsp;
 
 ## 10 - Handling Errors
+
+#### **10.2 - Throwing**
+
+#### **10.4 - Custom Errors**
+
+#### **10.1 - Kinds of Errors**
 Errors occur when something hasn't gone as expected, generally errors can fall into one of two broad groups:
 * **1 - Operational errors -** Occur while the program is doing a task ie, ie network failure.
 * **2 - Deveolper errors -** Is where we have made a mistake, ie a invalid input, we should be notified so we can fix it.
 
-An **error in JavaScript is an object**, which is **thrown** to halt the program, Node inherits the error class from JS.
+
+An **error in JavaScript is an object**, now if we then **thrown** that error it becomes an **exception**.
 
 We have the base **Error** constructor, from which we can create our own generic error, which would have the following three properties:-
 * **message**: a string with the error message we want to display
@@ -723,6 +750,7 @@ We have the base **Error** constructor, from which we can create our own generic
 
 ***creating our Custom Error allows us a higher level of communication in what went wrong in order to generate the error*** 
 
+#### **10.3 - Native Error Constructors**
 As well as the ability to created our own error types, we are give then following types, which also inherit from the base **Error** constructor, these are:
 * EvalError
 * SyntaxError
@@ -905,8 +933,8 @@ In order to understand what we need to do, we need to look at the individual asy
 #### Callbacks
 These are known as **Error first callbacks**, which is a specific convention we apply.
 
--  1. The first argument of the callback is reserved for an error object. If an error occurred, it will be returned by the first err argument.  
--  2. The second argument of the callback is reserved for any successful response data. If no error occurred, err will be set to null and any successful data will be returned in the second argument.
+-  1. The first argument of the callback is reserved for an **error object**. If an error occurred, it will be returned by the first err argument.  
+-  2. The second argument of the callback is reserved for any **successful response data**. If no error occurred, err will be set to null and any successful data will be returned in the second argument.
 
 So basically if there is an error we will know by checking the first argument else everything is well.
 &nbsp;
@@ -966,21 +994,55 @@ We can either:-
 2 - pass the error to another function to handle.
 
 
+
 #### Promises
 With a promise we get back either:-
-1 - `Promise.reject` --> for an error
-2 - `Promise.resolve` --> for success  
+1 - `Promise.reject` --> for an error --> which we `catch`.
+2 - `Promise.resolve` --> for success --> `then` use.
 
 
+so we call the promise, next we chain on what is subsequently to be done, ie its thenable or catchable: `.then` or `.catch`.
 
+```js
+// func.js
 
+function myFunc() {
+  return new Promise((resolve, reject) => {
+    // resolve("Success!...")
+    // reject("Something went wrong!...)
+  })
+}
 
+myFunc()
+.then((kingKenny) => { console.log(kingKenny)})
+.catch((blah) => { console.log(blah)});
+```
 
-#### Async / await
+so we would get:
+```
+$ func.js
+Success!...
+```
+
+Aside:-
+Promises in more detail
+
+A `.catch()` is really just a `.then()` without a slot for a callback function.
+
+#### **10.7 - Async/Await - Try/Catch**
 `async/await` denotes a asynchronous function, that has the readability of a synchronous one.
 
-The good news is that `async/await` supports `try/catch` of rejections. So basically we can use 
-// we can use a try/catch
+The good news is that `async/await` supports `try/catch` of rejections
+
+
+
+
+
+#### **10.5 - Try/Catch**
+#### **10.6 - Rejections**
+
+#### **10.8 - Propogation**
+
 
 
 
