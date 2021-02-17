@@ -681,19 +681,54 @@ Quick definition:
 When we `synchronously` execute something. we wait for it to finish before moving onto another task, in effect we are blocked from moving on to the next task.
 The opposite of this is when we `asynchronously` execute something, we can move onto another task before its finished, ie we are not blocked.
 
+So in a nutshell, when we are executing code and we come across a task that is going to take sometime for which we don't want to hold things up for, we use asychronicity. ie the task that is going to take sometime, is done while the main thread continues then at some later stage the result of the `asynchronous` task is brought back in. 
+
 Node gives us different ways to handle `asynchronous` operations, but in reality these are more of an evolution than completely different methodologies.
 
-The different ways available to use are:-
+We want to properly handle the asynchronous operation so that it is not lost, ie
+
+```js
+onsole.log('Before');
+const user = getUser(1);
+console.log(user);
+console.log('After');
+
+function getUser(id) {
+  setTimeout(() => {
+    return { id: id, name: 'Elvis'};
+  },2000)
+}
+```
+We are using setTimeout to replicate an asynchronous database call.
+
+So in an ideal world we want user to be `{id: 1, name: 'Elvis'}`, but life is not like that, the user variable will return undefined as no value will have been set.
+
+```
+Before
+undefined
+After
+```
+
+So to stop the above happening we are given the following ways to handle asynchronicity:-
 - callbacks
 - promises
 - asyn / await
 
-xxx - need to address more around why we need asynchronocity, without how would things look
-xxx - also 
+
+click to see above solved as callback
+
 
 Callbacks:- 
 ***"in ye olde node days, these were the only way to handle asychronicity"***
 A callback is a function that will be called at some future point, we pass the function in as the last argument, the calling function does it stuff then before it ends it **callbacks** to the passed in function and basically says **go ahead lad, do you stuff**.
+
+Example:-
+
+
+
+
+
+
 
 Callback key takeouts:-
 * its a function that is passed into another function (HOF) as an argument (the last argument if more than one).
@@ -704,14 +739,43 @@ Callback key takeouts:-
 
 
 
+
 Promises:-
 ***These are callbacks brought into the 20th Century***
+Basically a promise in JS is just like in real life, ie you promise to get the return home with a pint of milk, if successful we return home with the said pint of milk (we resolved the promise), if we don't return home with the pint of milk then we have failed (we rejected delivering the promise).
+
 A promise is an object that represents an asynchronous operation. 
 The promise is either:-
 1 - `pending`
 2 - `settled` --> `resolved` or `rejected`
 
 
+A basic example:-
+
+```js
+// func.js
+
+let myPromise = new Promise((resolve, reject) => {
+  let a = 1 + 1;
+  if( a == 2 ) {
+    resolve('Success');
+  } else {
+    reject('Failed');
+  }
+})
+
+myPromise
+  .then((message) => {console.log(`In the then - ${message}`)})
+  .catch((message) => {console.log(`In the catch - ${message}`)})
+```
+
+```
+$ node func.js
+In the then - Success
+```
+
+
+what we pass to resolve or reject that is returned....
 Promisify
 
 
@@ -1026,7 +1090,7 @@ Oops no!... // for reject
 ```
 
 
-But the rejection is not an error object, for that we would need to pass on in:-
+But the rejection is not an error object, for that we would need to pass one in:-
 
 ```js
 // func.js
@@ -1064,11 +1128,12 @@ A `.catch()` is really just a `.then()` without a slot for a callback function.
 
 The good news is that `async/await` supports `try/catch` of rejections
 
+note: we can transform a synchronous function into an asynchronous one by simply putting async in front of it, also within the promise we don't need to do reject and resolve.
 
 
 
 
-#### **10.5 - Try/Catch**
+
 #### **10.6 - Rejections**
 
 #### **10.8 - Propogation**
