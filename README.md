@@ -696,7 +696,7 @@ console.log('After');
 function getUser(id) {
   setTimeout(() => {
     return { id: id, name: 'Elvis'};
-  },2000)
+  }, 2000)
 }
 ```
 We are using setTimeout to replicate an asynchronous database call.
@@ -716,6 +716,32 @@ So to stop the above happening we are given the following ways to handle asynchr
 
 
 click to see above solved as callback
+
+We need to change things around at bit
+1 - the async function, `getUser` needs to be altered slightly to include and additional parameter, which is the callback.
+2 - the callback function is what is called at the end of the higher order function `getUser`.
+
+```js
+console.log('Before');
+getUser(1, (user) => {
+  console.log('User ', user);
+});
+console.log('After');
+
+function getUser(id, callback) {
+  setTimeout(() => {
+    callback({ id: id, name: 'Elvis'});
+  }, 2000)
+}
+```
+
+```
+Before
+After
+User  { id: 1, name: 'Elvis' }
+```
+
+
 
 
 Callbacks:- 
@@ -744,7 +770,7 @@ Promises:-
 ***These are callbacks brought into the 20th Century***
 Basically a promise in JS is just like in real life, ie you promise to get the return home with a pint of milk, if successful we return home with the said pint of milk (we resolved the promise), if we don't return home with the pint of milk then we have failed (we rejected delivering the promise).
 
-A promise is an object that represents an asynchronous operation. 
+A promise is an object that represents the result of an asynchronous operation. 
 The promise is either:-
 1 - `pending`
 2 - `settled` --> `resolved` or `rejected`
