@@ -374,7 +374,7 @@ Modules allow us to encapsulate all sorts of functionality, and expose this func
 All examples use CommonJS.
 
 ### **7.2 - Creating a Module**
-A JavaSript file is a module when it exports one or more of the following: variables, functions, objects.
+A JavaScript file is a module when it exports one or more of the following: variables, functions, objects.
 &nbsp;
 
 We use the `require` function to bring in what is exported, and as above that could be anything.
@@ -398,7 +398,7 @@ We use the `require` function to bring in what is exported, and as above that co
   </summary>
   <h4>i - How not to use exports</h4>
   
-  <h5>Multiple assigments - module.exports:-</h5>
+  <h5>Multiple assignments - module.exports:-</h5>
 
   ```js
   // func.js
@@ -473,7 +473,7 @@ We can bring in what is exported in the following ways:-
   ```
 
   <hr>
-  <h5>Multiple assigments - exports:-</h5>
+  <h5>Multiple assignments - exports:-</h5>
 
   Lets save effort on our pinkies even more and just directly assign the functions to `module.exports` using the shorthand of `exports`.  
   So we are assigning the function to exports.add, so there is now a property on the module.exports object called add which contains the add function.
@@ -487,7 +487,7 @@ We can bring in what is exported in the following ways:-
     return a + b;
   }
 
-  exports.subract = function(a, b) {
+  exports.subtract = function(a, b) {
     return a - b;
   }
   ```
@@ -688,7 +688,7 @@ Node gives us different ways to handle `asynchronous` operations, but in reality
 We want to properly handle the asynchronous operation so that it is not lost, ie
 
 ```js
-onsole.log('Before');
+console.log('Before');
 const user = getUser(1);
 console.log(user);
 console.log('After');
@@ -712,7 +712,7 @@ After
 So to stop the above happening we are given the following ways to handle asynchronicity:-
 - callbacks
 - promises
-- asyn / await
+- async / await
 
 
 click to see above solved as callback
@@ -811,7 +811,7 @@ Promises key takeouts:-
 * or we can the reject with an explicit `.catch`
 
 
-Asyn/Await:-
+Async/Await:-
 ***Think of these as the future this is 21st Century stuff***
 
 &nbsp;
@@ -828,7 +828,7 @@ Asyn/Await:-
 #### **10.1 - Kinds of Errors**
 Errors occur when something hasn't gone as expected, generally errors can fall into one of two broad groups:
 * **1 - Operational errors -** Occur while the program is doing a task ie, ie network failure.
-* **2 - Deveolper errors -** Is where we have made a mistake, ie a invalid input, we should be notified so we can fix it.
+* **2 - Developer errors -** Is where we have made a mistake, ie a invalid input, we should be notified so we can fix it.
 
 
 An **error in JavaScript is an object**, now if we then **thrown** that error it becomes an **exception**.
@@ -905,7 +905,7 @@ TypeError: Wrong type given, should be a string
   at toUppercase (/blahblah/Projects/node_jsnad/test.js:3)
   at Object.<anonymous> (/blahblahProjects/node_jsnad/test.js:8)
 ```
-aside: In the error I have left in the line number ie 3, but ommitted the column number which was 11.
+aside: In the error I have left in the line number ie 3, but omitted the column number which was 11.
 
 Error handling in an asynchronous world is distinct from its synchronous counterpart.
 
